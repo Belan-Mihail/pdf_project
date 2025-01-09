@@ -7,10 +7,13 @@ interface SaveToPdfProp {
 
 const SaveToPdf: React.FC<SaveToPdfProp> = ({companyName}) => {
 
+    const handleGeneratePdf = () => {
+        console.log('generate pdf')
+    }
 
   return (
     <div>
-        <button type='button'>Generate Pdf</button>
+        <button onClick={handleGeneratePdf} type='button'>Generate Pdf</button>
     </div>
   )
 }
