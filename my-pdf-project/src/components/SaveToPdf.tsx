@@ -12,8 +12,8 @@ const SaveToPdf: React.FC<SaveToPdfProp> = ({ companyName }) => {
         const doc = new jsPDF();
 
         // Document settings
-        const margin = 15;
-        const lineHeight = 8;
+        const margin = 8;
+        const lineHeight = 4;
         const pageWidth = doc.internal.pageSize.width;
         const pageHeight = doc.internal.pageSize.height;
         let yPosition = margin;
