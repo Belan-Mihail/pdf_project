@@ -25,35 +25,49 @@ const SaveToPdf: React.FC<SaveToPdfProp> = ({ companyName, setCompanyName }) => 
         textData.forEach((item) => {
             doc.setFont(item.isBold ? 'helvetica' : 'helvetica', item.isBold ? 'bold' : 'normal');
             doc.setFontSize(12);
-            
-            // Break the text into lines so it doesn't go beyond the page
-            const lines = doc.splitTextToSize(item.content.replace("TestName", companyName), pageWidth - 2 * margin);
 
-            // Add text to the document, checking for page overflow
-            lines.forEach((line) => {
-                if (yPosition + lineHeight > pageHeight - margin) {
-                    doc.addPage();  // Add a new page if the text overflows
-                    yPosition = margin;  // Reset the position for the new page
+            if (item.type === 'list') {
+                // If the type is "list", process as a list
+                if (Array.isArray(item.content)) {
+                    item.content.forEach((listItem: string) => {
+                        if (yPosition + lineHeight > pageHeight - margin) {
+                            doc.addPage(); // Add a new page if the text overflows
+                            yPosition = margin;
+                        }
+                        doc.text(`• ${listItem}`, leftMargin, yPosition);  // Use a bullet point for lists
+                        yPosition += lineHeight;
+                    });
                 }
-                doc.text(line, margin, yPosition);
-                yPosition += lineHeight;
-            });
+            } else {
+                // For other types (header, subheader, paragraph)
+                const content = Array.isArray(item.content) ? item.content.join(' ') : item.content; // Ensure content is a string
+                const lines = doc.splitTextToSize(content.replace("TestName", companyName), pageWidth - leftMargin - rightMargin);
+                
+                // Add text with justification for paragraphs
+                lines.forEach((line) => {
+                    if (yPosition + lineHeight > pageHeight - margin) {
+                        doc.addPage();
+                        yPosition = margin;
+                    }
+                    doc.text(line, leftMargin, yPosition);  // Add normal text
+                    yPosition += lineHeight;
+                });
+            }
 
             // Add a blank line between paragraphs
             yPosition += lineHeight;
 
-            // Check if we need to add a new page for the next paragraph
+            // Check for page overflow
             if (yPosition + lineHeight > pageHeight - margin) {
                 doc.addPage();
                 yPosition = margin;
             }
         });
 
-        
         // Generate PDF
         doc.save('letter.pdf');
         
-        setCompanyName('')
+        setCompanyName(''); // Clear company name after saving
     }
 
     return (
