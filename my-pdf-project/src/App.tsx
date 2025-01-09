@@ -10,7 +10,12 @@ const App: React.FC = () => {
     setCompanyName(e.target.value)
   }
 
-  
+  // handleGeneratePdf
+  const handleGeneratePdf = () => {
+    console.log('generate pdf')
+  }
+
+
   return (
     <div>
       Hello world
