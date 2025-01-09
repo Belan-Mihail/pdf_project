@@ -1,6 +1,5 @@
 import React from 'react'
 import jsPDF from 'jspdf';
-import textData from '../textData.json';
 import { Dispatch, SetStateAction } from 'react';
 
 interface SaveToPdfProp {
@@ -10,22 +9,26 @@ interface SaveToPdfProp {
 
 const SaveToPdf: React.FC<SaveToPdfProp> = ({ companyName, setCompanyName }) => {
 
-    const handleGeneratePdf = () => {
+    const handleGeneratePdf = async () => {
         const doc = new jsPDF();
-
+    
         // Document settings
-        const leftMargin = 10;
-        const rightMargin = 10;
+        const leftMargin = 18;
+        const rightMargin = 18;
         const margin = leftMargin;
         const lineHeight = 4;
         const pageWidth = doc.internal.pageSize.width;
         const pageHeight = doc.internal.pageSize.height;
         let yPosition = margin;
-
-        textData.forEach((item) => {
+    
+        // Load data from public/textData.json
+        const response = await fetch('/textData.json');
+        const textData = await response.json(); // Get data from JSON file
+    
+        textData.forEach((item: any) => {
             doc.setFont(item.isBold ? 'helvetica' : 'helvetica', item.isBold ? 'bold' : 'normal');
             doc.setFontSize(12);
-
+    
             if (item.type === 'list') {
                 // If the type is "list", process as a list
                 if (Array.isArray(item.content)) {
@@ -46,29 +49,30 @@ const SaveToPdf: React.FC<SaveToPdfProp> = ({ companyName, setCompanyName }) => 
                 // Add text with justification for paragraphs
                 lines.forEach((line) => {
                     if (yPosition + lineHeight > pageHeight - margin) {
-                        doc.addPage();
+                        doc.addPage(); // Add a new page if the text overflows
                         yPosition = margin;
                     }
                     doc.text(line, leftMargin, yPosition);  // Add normal text
                     yPosition += lineHeight;
                 });
             }
-
+    
             // Add a blank line between paragraphs
             yPosition += lineHeight;
-
+    
             // Check for page overflow
             if (yPosition + lineHeight > pageHeight - margin) {
-                doc.addPage();
+                doc.addPage(); // Add a new page if the text overflows
                 yPosition = margin;
             }
         });
-
+    
         // Generate PDF
         doc.save('letter.pdf');
         
         setCompanyName(''); // Clear company name after saving
     }
+    
 
     return (
         <div>
