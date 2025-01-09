@@ -17,8 +17,13 @@ const App: React.FC = () => {
 
 
   return (
-    <div>
-      Hello world
+    <div className='App'>
+      <h1>Generate Letter</h1>
+
+      <div className="input-container">
+        <label htmlFor="companyName">Company Name:</label>
+        <input type="text" value={companyName} onChange={handleInputChange} id='companyName' placeholder='Enter name of company..' />
+      </div>
     </div>
   )
 }
