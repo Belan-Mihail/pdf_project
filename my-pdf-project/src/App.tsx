@@ -1,6 +1,7 @@
 import { useState } from 'react'
 
 import './App.css'
+import SaveToPdf from './components/SaveToPdf'
 
 const App: React.FC = () => {
   const [companyName, setCompanyName] = useState<string>('')
@@ -10,11 +11,7 @@ const App: React.FC = () => {
     setCompanyName(e.target.value)
   }
 
-  // handleGeneratePdf
-  const handleGeneratePdf = () => {
-    console.log('generate pdf')
-  }
-
+  
 
   return (
     <div className='App'>
@@ -24,6 +21,8 @@ const App: React.FC = () => {
         <label htmlFor="companyName">Company Name:</label>
         <input type="text" value={companyName} onChange={handleInputChange} id='companyName' placeholder='Enter name of company..' />
       </div>
+
+      {companyName && <SaveToPdf companyName={companyName} />}
     </div>
   )
 }
