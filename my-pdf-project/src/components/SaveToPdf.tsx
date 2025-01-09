@@ -1,12 +1,14 @@
 import React from 'react'
 import jsPDF from 'jspdf';
 import textData from '../textData.json';
+import { Dispatch, SetStateAction } from 'react';
 
 interface SaveToPdfProp {
     companyName: string
+    setCompanyName: Dispatch<SetStateAction<string>>;
 }
 
-const SaveToPdf: React.FC<SaveToPdfProp> = ({ companyName }) => {
+const SaveToPdf: React.FC<SaveToPdfProp> = ({ companyName, setCompanyName }) => {
 
     const handleGeneratePdf = () => {
         const doc = new jsPDF();
@@ -45,8 +47,11 @@ const SaveToPdf: React.FC<SaveToPdfProp> = ({ companyName }) => {
             }
         });
 
+        
         // Generate PDF
         doc.save('letter.pdf');
+        
+        setCompanyName('')
     }
 
     return (

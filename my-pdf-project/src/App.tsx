@@ -23,7 +23,7 @@ const App: React.FC = () => {
         <input type="text" value={companyName} onChange={handleInputChange} id='companyName' placeholder='Enter name of company..' />
       </div>
 
-      {companyName && <SaveToPdf companyName={companyName} />}
+      {companyName && <SaveToPdf companyName={companyName} setCompanyName={setCompanyName} />}
       
       
     </div>
