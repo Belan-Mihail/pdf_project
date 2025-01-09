@@ -15,7 +15,8 @@ const App: React.FC = () => {
 
   return (
     <div className='App'>
-      <h1>Generate Letter</h1>
+      
+        <h1>Generate Letter</h1>
 
       <div className="input-container">
         <label htmlFor="companyName">Company Name:</label>
@@ -23,6 +24,8 @@ const App: React.FC = () => {
       </div>
 
       {companyName && <SaveToPdf companyName={companyName} />}
+      
+      
     </div>
   )
 }
