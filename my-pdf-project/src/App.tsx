@@ -2,6 +2,7 @@ import { useState } from 'react'
 
 import './App.css'
 import SaveToPdf from './components/SaveToPdf'
+import TextEditor from './components/TextEditor'
 
 const App: React.FC = () => {
   const [companyName, setCompanyName] = useState<string>('')
@@ -25,6 +26,7 @@ const App: React.FC = () => {
 
       {companyName && <SaveToPdf companyName={companyName} setCompanyName={setCompanyName} />}
       
+      <TextEditor />
       
     </div>
   )
