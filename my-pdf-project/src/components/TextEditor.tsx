@@ -2,6 +2,7 @@ import { useState } from 'react';
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css'; 
 import { jsPDF } from 'jspdf';
+import html2pdf from 'html2pdf.js';
 
 
 const TextEditor:React.FC = () => {
@@ -9,12 +10,14 @@ const TextEditor:React.FC = () => {
 
     // funt to save PDF
     const saveToPdfFile = () => {
-        const doc = new jsPDF();
-
-        // add text content
-        doc.text(editorContent, 10, 30)
-
-        doc.save('generated_letter.pdf')
+        const content = document.getElementById('editor-content');
+    
+    if (content) {
+      
+      html2pdf()
+        .from(content) 
+        .save('generated-letter.pdf'); 
+    }
     }
 
 
