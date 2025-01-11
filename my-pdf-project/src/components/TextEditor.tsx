@@ -2,6 +2,7 @@ import { useState } from 'react';
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css'; 
 import html2pdf from 'html2pdf.js';
+import './TextEditor.css';
 
 const TextEditor: React.FC = () => {
   const [editorContent, setEditorContent] = useState<string>('');

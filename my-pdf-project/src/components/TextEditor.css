@@ -1,0 +1,15 @@
+/* TextEditor.css */
+.ql-editor p {
+    margin-bottom: 5px;
+    text-align: justify; 
+  }
+  
+  .ql-editor {
+    font-family: 'Arial', sans-serif; 
+    font-size: 12pt; 
+  }
+  
+  .ql-editor .ql-align-justify {
+    text-align: justify; 
+  }
+  
