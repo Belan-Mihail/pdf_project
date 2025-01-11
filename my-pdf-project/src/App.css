@@ -50,3 +50,8 @@ button {
 button:hover {
   background-color: #45a049;
 }
+
+.text-editor {
+  margin-top: 20px;
+}
+
