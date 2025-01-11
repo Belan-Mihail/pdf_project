@@ -13,7 +13,7 @@ const TextEditor: React.FC = () => {
 
     
     const options = {
-      margin: 0,
+      margin: 10,
       filename: 'generated-letter.pdf',
       html2canvas: { scale: 2 },
       jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' },
@@ -34,6 +34,17 @@ const TextEditor: React.FC = () => {
         value={editorContent}
         onChange={setEditorContent}
         placeholder="Write your letter here..."
+        modules={{
+          toolbar: [
+            [{ 'header': '1' }, { 'header': '2' }, { 'font': [] }],
+            [{ 'list': 'ordered' }, { 'list': 'bullet' }],
+            [{ 'align': [] }],
+            ['bold', 'italic', 'underline'],
+            ['link'],
+            ['blockquote', 'code-block'],
+            [{ 'align': 'justify' }],  
+          ],
+        }}
       />
 
       <button onClick={saveToPdf}>Save as PDF</button>
